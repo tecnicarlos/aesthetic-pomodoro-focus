@@ -1,0 +1,66 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "homepage": "./",
+  "main": "index.ts",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
+    "electron:dev": "concurrently \"expo start --web --clear\" \"wait-on http://localhost:8081 && cross-env NODE_ENV=development electron electron/main.js\"",
+    "build:web": "expo export --platform web && node scripts/fix-html-paths.js",
+    "build:win": "npm run build:web && electron-builder --win --dir",
+    "dist:win": "npm run build:web && electron-builder --win"
+  },
+  "build": {
+    "appId": "com.aesthetic.pomodoro",
+    "productName": "Aesthetic Pomodoro",
+    "win": {
+      "target": "nsis",
+      "forceCodeSigning": false
+    },
+    "extraMetadata": {
+      "main": "electron/main.js"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*",
+      "package.json"
+    ],
+    "directories": {
+      "output": "dist"
+    }
+  },
+  "dependencies": {
+    "@expo/metro-runtime": "~6.1.2",
+    "@react-native-async-storage/async-storage": "2.2.0",
+    "@react-native-community/slider": "^5.1.1",
+    "@supabase/supabase-js": "^2.86.0",
+    "expo": "~54.0.25",
+    "expo-av": "^16.0.7",
+    "expo-haptics": "~15.0.7",
+    "expo-linear-gradient": "~15.0.7",
+    "expo-notifications": "~0.32.13",
+    "expo-status-bar": "~3.0.8",
+    "lucide-react-native": "^0.555.0",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "react-native": "0.81.5",
+    "react-native-svg": "15.12.1",
+    "react-native-web": "^0.21.0",
+    "zustand": "^4.5.2"
+  },
+  "devDependencies": {
+    "@types/react": "~19.1.0",
+    "babel-plugin-transform-import-meta": "^2.3.3",
+    "babel-preset-expo": "^54.0.7",
+    "concurrently": "^9.2.1",
+    "cross-env": "^10.1.0",
+    "electron": "^39.2.4",
+    "electron-builder": "^26.0.12",
+    "typescript": "~5.9.2",
+    "wait-on": "^9.0.3"
+  },
+  "private": true
+}
